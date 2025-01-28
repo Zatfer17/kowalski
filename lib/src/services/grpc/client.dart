@@ -35,6 +35,13 @@ class Client {
     }
   }
 
+  /// Adds a new note and returns the created note.
+  Future<Note> addNote(String content, List<String> tags) async {
+    final request = AddRequest(content: content, tags: tags);
+    final response = await stub.add(request);
+    return response.note; // Return the newly created note
+  }
+
   Future<List<Note>> listNotes() async {
     final request = ListRequest();
     final response = await stub.list(request);

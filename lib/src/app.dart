@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kowalski/src/views/home.dart';
+import 'package:kowalski/src/screens/home.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -9,7 +9,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Kowalski",
       theme: ThemeData(
-        useMaterial3: true
+        useMaterial3: true,
       ),
       home: HomeView()
     );
