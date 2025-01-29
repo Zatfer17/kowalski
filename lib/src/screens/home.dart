@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:kowalski/src/services/grpc/client.dart';
-import 'package:kowalski/src/model/note.dart';
 import 'package:kowalski/src/screens/widgets/note_grid_view.dart';
 import 'package:kowalski/src/screens/widgets/add_button.dart';
 import 'package:kowalski/src/screens/widgets/bottom_bar.dart';
 
-class HomeView extends StatefulWidget{
-  const HomeView({super.key});
+class HomeScreen extends StatefulWidget{
+  const HomeScreen({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  final Client grpcClient = Client();
+class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
