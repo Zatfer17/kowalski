@@ -20,7 +20,7 @@ class EditorScreen extends StatelessWidget {
           controller: CodeLineEditingController.fromText(initialContent),
         )
       ),
-      //floatingActionButton: SaveButton(),
+      floatingActionButton: SaveButton(),
     );
   }
 }

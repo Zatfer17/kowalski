@@ -19,18 +19,26 @@ import 'service.pb.dart' as $0;
 
 export 'service.pb.dart';
 
-@$pb.GrpcServiceName('service.Service')
-class ServiceClient extends $grpc.Client {
+@$pb.GrpcServiceName('service.Kowalski')
+class KowalskiClient extends $grpc.Client {
   static final _$add = $grpc.ClientMethod<$0.AddRequest, $0.AddResponse>(
-      '/service.Service/Add',
+      '/service.Kowalski/Add',
       ($0.AddRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.AddResponse.fromBuffer(value));
+  static final _$edit = $grpc.ClientMethod<$0.EditRequest, $0.EditResponse>(
+      '/service.Kowalski/Edit',
+      ($0.EditRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.EditResponse.fromBuffer(value));
   static final _$list = $grpc.ClientMethod<$0.ListRequest, $0.ListResponse>(
-      '/service.Service/List',
+      '/service.Kowalski/List',
       ($0.ListRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.ListResponse.fromBuffer(value));
+  static final _$save = $grpc.ClientMethod<$0.SaveRequest, $0.SaveResponse>(
+      '/service.Kowalski/Save',
+      ($0.SaveRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.SaveResponse.fromBuffer(value));
 
-  ServiceClient($grpc.ClientChannel channel,
+  KowalskiClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
       $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options,
@@ -40,16 +48,24 @@ class ServiceClient extends $grpc.Client {
     return $createUnaryCall(_$add, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.EditResponse> edit($0.EditRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$edit, request, options: options);
+  }
+
   $grpc.ResponseFuture<$0.ListResponse> list($0.ListRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$list, request, options: options);
   }
+
+  $grpc.ResponseFuture<$0.SaveResponse> save($0.SaveRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$save, request, options: options);
+  }
 }
 
-@$pb.GrpcServiceName('service.Service')
-abstract class ServiceBase extends $grpc.Service {
-  $core.String get $name => 'service.Service';
+@$pb.GrpcServiceName('service.Kowalski')
+abstract class KowalskiServiceBase extends $grpc.Service {
+  $core.String get $name => 'service.Kowalski';
 
-  ServiceBase() {
+  KowalskiServiceBase() {
     $addMethod($grpc.ServiceMethod<$0.AddRequest, $0.AddResponse>(
         'Add',
         add_Pre,
@@ -57,6 +73,13 @@ abstract class ServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.AddRequest.fromBuffer(value),
         ($0.AddResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.EditRequest, $0.EditResponse>(
+        'Edit',
+        edit_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.EditRequest.fromBuffer(value),
+        ($0.EditResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.ListRequest, $0.ListResponse>(
         'List',
         list_Pre,
@@ -64,16 +87,33 @@ abstract class ServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ListRequest.fromBuffer(value),
         ($0.ListResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SaveRequest, $0.SaveResponse>(
+        'Save',
+        save_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.SaveRequest.fromBuffer(value),
+        ($0.SaveResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AddResponse> add_Pre($grpc.ServiceCall call, $async.Future<$0.AddRequest> request) async {
     return add(call, await request);
   }
 
+  $async.Future<$0.EditResponse> edit_Pre($grpc.ServiceCall call, $async.Future<$0.EditRequest> request) async {
+    return edit(call, await request);
+  }
+
   $async.Future<$0.ListResponse> list_Pre($grpc.ServiceCall call, $async.Future<$0.ListRequest> request) async {
     return list(call, await request);
   }
 
+  $async.Future<$0.SaveResponse> save_Pre($grpc.ServiceCall call, $async.Future<$0.SaveRequest> request) async {
+    return save(call, await request);
+  }
+
   $async.Future<$0.AddResponse> add($grpc.ServiceCall call, $0.AddRequest request);
+  $async.Future<$0.EditResponse> edit($grpc.ServiceCall call, $0.EditRequest request);
   $async.Future<$0.ListResponse> list($grpc.ServiceCall call, $0.ListRequest request);
+  $async.Future<$0.SaveResponse> save($grpc.ServiceCall call, $0.SaveRequest request);
 }

@@ -4,7 +4,7 @@ import 'service.pbgrpc.dart';
 
 class Client {
   late ClientChannel channel;
-  late ServiceClient stub;
+  late KowalskiClient stub;
   final StreamController<List<Note>> _notesController = StreamController.broadcast();
 
   Client() {
@@ -13,7 +13,7 @@ class Client {
       port: 50051,
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
-    stub = ServiceClient(
+    stub = KowalskiClient(
       channel,
       options: CallOptions(timeout: const Duration(seconds: 30)),
     );
@@ -36,14 +36,16 @@ class Client {
   }
 
   /// Adds a new note and returns the created note.
-  Future<Note> addNote(String content, List<String> tags) async {
+  Future addNote(String content, List<String> tags) async {
     final request = AddRequest(content: content, tags: tags);
     final response = await stub.add(request);
-    return response.note; // Return the newly created note
+    return response;
   }
 
   Future<List<Note>> listNotes() async {
-    final request = ListRequest();
+    final request = ListRequest(
+      descending: true,
+    );
     final response = await stub.list(request);
     return response.notes;
   }
