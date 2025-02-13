@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "github.com/Zatfer17/kowalski-core/internal/proto";
+
+service Kowalski {
+    rpc Add (AddRequest) returns (AddResponse);
+    rpc Edit (EditRequest) returns (EditResponse);
+    rpc Find (FindRequest) returns (FindResponse);
+    rpc List (ListRequest) returns (ListResponse);
+    rpc Remove (RemoveRequest) returns (RemoveResponse);
+    rpc Save (SaveRequest) returns (SaveResponse);
+}
+
+message Note {
+    string created = 1;
+    repeated string tags = 2;
+    string color = 3;
+    string content = 4;
+}
+
+message AddRequest {
+    repeated string tags = 1;
+    string content = 2;
+}
+
+message AddResponse {
+    string error = 1;
+}
+
+message EditRequest {
+    string name = 1;
+    repeated string tags = 2;
+    string content = 3;
+}
+
+message EditResponse {
+    string error = 1;
+}
+
+message FindRequest {
+    string query = 1;
+    bool descending = 2;
+}
+
+message FindResponse {
+    repeated Note notes = 1;
+    string error = 2;
+}
+
+message ListRequest {
+    int32 limit = 1;
+    bool descending = 2;
+}
+
+message ListResponse {
+    repeated Note notes = 1;
+    string error = 2;
+}
+
+message RemoveRequest {
+    string name = 1;
+}
+
+message RemoveResponse {
+    string error = 1;
+}
+
+message SaveRequest {
+    repeated string tags = 1;
+    string content = 2;
+}
+
+message SaveResponse {
+    string error = 1;
+}
