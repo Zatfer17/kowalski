@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kowalski/models/note.dart';
 import 'package:kowalski/services/grpc/client.dart';
-import 'package:kowalski/widgets/note_card.dart';
+import 'package:kowalski/screens/notes.dart';
 import 'package:kowalski/screens/editor.dart'; // Import the editor screen
+import 'package:kowalski/screens/search.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -29,19 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Map<String, List<Note>> _groupNotesByMonth() {
-    Map<String, List<Note>> groupedNotes = {};
-    for (var note in notes) {
-      String monthYear = DateFormat('MMMM yyyy').format(note.createdDate);
-      groupedNotes.putIfAbsent(monthYear, () => []).add(note);
-    }
-    return groupedNotes;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final groupedNotes = _groupNotesByMonth();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -57,42 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 24),
-        children: groupedNotes.entries.map((entry) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-                child: Text(
-                  entry.key,
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-              ...entry.value.map((note) => NoteCard(
-                    note: note,
-                    onTap: () {
-                      // Navigate to the EditorScreen with the selected note
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditorScreen(note: note),
-                        ),
-                      );
-                    },
-                  )),
-            ],
-          );
-        }).toList(),
+      body: IndexedStack(
+        index: selectedIndex,
+        children: [
+          NotesScreen(notes: notes), // Replace ListView with NotesScreen
+          SearchScreen(),
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to the EditorScreen with no note (for creating a new one)
           Navigator.push(
             context,
             MaterialPageRoute(

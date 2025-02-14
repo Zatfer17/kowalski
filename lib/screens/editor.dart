@@ -39,6 +39,45 @@ class _EditorScreenState extends State<EditorScreen> {
     });
   }
 
+  void _handleDelete() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Delete Note',
+            style: TextStyle(color: Colors.black),
+          ),
+          content: Text(
+            'Are you sure you want to delete this note?',
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close dialog
+                Navigator.pop(context); // Return to previous screen
+                // TODO: Implement actual delete functionality
+              },
+              child: Text(
+                'Delete',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     _tagFocusNode.dispose();
@@ -59,6 +98,13 @@ class _EditorScreenState extends State<EditorScreen> {
           icon: Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          if (widget.note != null) // Only show delete button for existing notes
+            IconButton(
+              icon: Icon(Icons.delete_outlined, color: Colors.black87),
+              onPressed: _handleDelete,
+            ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +158,7 @@ class _EditorScreenState extends State<EditorScreen> {
                       contentPadding: EdgeInsets.symmetric(vertical: 8),
                       constraints: BoxConstraints(minWidth: 80),
                       isDense: true,
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
                     ),
                     style: TextStyle(
                       fontSize: 14,
