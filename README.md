@@ -17,4 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Setup
 
+```
 protoc --dart_out=grpc:lib/src/services/grpc -Iprotos proto/service.proto
+```
+
+```
+flutter run --profile --cache-sksl --purge-persistent-cache
+```
