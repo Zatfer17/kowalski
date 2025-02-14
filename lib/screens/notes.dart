@@ -1,62 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:kowalski/services/grpc/client.dart';
 import 'package:kowalski/models/note.dart';
 import 'package:kowalski/widgets/note_card.dart';
 import 'package:kowalski/screens/editor.dart';
 
-class NotesScreen extends StatelessWidget {
-  final List<Note> notes;
+class NotesScreen extends StatefulWidget {
   final Client client;
 
-    const NotesScreen({
-      Key? key,
-      required this.notes,
-      required this.client,
-    }) : super(key: key);
+  const NotesScreen({
+    Key? key,
+    required this.client,
+  }) : super(key: key);
 
-  Map<String, List<Note>> _groupNotesByMonth() {
-    Map<String, List<Note>> groupedNotes = {};
-    for (var note in notes) {
-      String monthYear = DateFormat('MMMM yyyy').format(note.createdDate);
-      groupedNotes.putIfAbsent(monthYear, () => []).add(note);
-    }
-    return groupedNotes;
+  @override
+  State<NotesScreen> createState() => _NotesScreenState();
+}
+
+class _NotesScreenState extends State<NotesScreen> {
+  List<Note> notes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadNotes();
+  }
+
+  Future<void> _loadNotes() async {
+    final grpcNotes = await widget.client.listNotes();
+    setState(() {
+      notes = grpcNotes.map((grpcNote) => Note.fromGrpc(grpcNote)).toList();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
       padding: EdgeInsets.symmetric(vertical: 24),
-      children: _groupNotesByMonth().entries.map((entry) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
-              child: Text(
-                entry.key,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+      itemCount: notes.length,
+      itemBuilder: (context, index) {
+        final note = notes[index];
+        return NoteCard(
+          note: note,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditorScreen(
+                  note: note,
+                  client: widget.client,
                 ),
               ),
-            ),
-            ...entry.value.map((note) => NoteCard(
-              note: note,
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditorScreen(note: note, client: client),
-                  ),
-                );
-              },
-            )),
-          ],
+            );
+          },
         );
-      }).toList(),
+      },
     );
   }
 }

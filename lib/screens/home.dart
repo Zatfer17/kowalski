@@ -12,22 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-
-  List<Note> notes = [];
   final Client client = Client();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadNotes();
-  }
-
-  Future<void> _loadNotes() async {
-    final grpcNotes = await client.listNotes();
-    setState(() {
-      notes = grpcNotes.map((grpcNote) => Note.fromGrpc(grpcNote)).toList();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
         index: selectedIndex,
         children: [
           NotesScreen(
-            notes: notes,
             client: client,
           ),
           SearchScreen(
