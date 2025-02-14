@@ -47,6 +47,38 @@ class _EditorScreenState extends State<EditorScreen> {
   }
 
   void _handleSave() async {
+    final content = _contentController.text.trim();
+    if (content.isEmpty) {
+      return;
+    }
+
+    try {
+      if (widget.note == null) {
+        // Create new note
+        await widget.client.addNote(tags, content);
+        Navigator.pop(context);
+      } else {
+        // TODO: Implement edit note
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      // Show error dialog
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to save note: ${e.toString()}'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _handleDelete() {
@@ -72,10 +104,32 @@ class _EditorScreenState extends State<EditorScreen> {
               ),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close dialog
-                Navigator.pop(context); // Return to previous screen
-                // TODO: Implement actual delete functionality
+              onPressed: () async {
+                try {
+                  if (widget.note != null) {
+                    await widget.client.removeNote(widget.note!.created);
+                  }
+                  Navigator.pop(context); // Close dialog
+                  Navigator.pop(context); // Return to previous screen
+                } catch (e) {
+                  Navigator.pop(context); // Close dialog
+                  // Show error dialog
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        content: Text('Failed to delete note: ${e.toString()}'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               },
               child: Text(
                 'Delete',

@@ -16,15 +16,19 @@ class Client {
     );
   }
 
-  Future addNote(List<String> tags, String content) async {
+  Future<void> addNote(List<String> tags, String content) async {
     final request = AddRequest(content: content, tags: tags);
-    final response = await stub.add(request);
-    return response;
+    await stub.add(request);
   }
 
   Future<List<Note>> listNotes() async {
     final request = ListRequest(descending: true);
     final response = await stub.list(request);
     return response.notes;
+  }
+
+  Future<void> removeNote(String created) async {
+    final request = RemoveRequest(name: '$created.md');
+    await stub.remove(request);
   }
 }

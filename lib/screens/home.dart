@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kowalski/models/note.dart';
 import 'package:kowalski/services/grpc/client.dart';
 import 'package:kowalski/screens/notes.dart';
 import 'package:kowalski/screens/editor.dart'; // Import the editor screen
@@ -13,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   final Client client = Client();
+  final GlobalKey<NotesScreenState> notesKey = GlobalKey();  // Add this line
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +21,23 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Padding(
-          padding: const EdgeInsets.only(top: 16, left: 16.0),
-          child: Text(
-            'kowalski',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-            ),
+          padding: const EdgeInsets.only(top: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'kowalski',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+              if (selectedIndex == 0)  // Only show refresh button on notes screen
+                IconButton(
+                  icon: Icon(Icons.refresh, color: Colors.black87),
+                  onPressed: () => notesKey.currentState?.loadNotes(),
+                ),
+            ],
           ),
         ),
       ),
@@ -35,11 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
         index: selectedIndex,
         children: [
           NotesScreen(
+            key: notesKey,  // Add this line
             client: client,
           ),
-          SearchScreen(
-            client: client,
-          ),
+          SearchScreen(client: client),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(

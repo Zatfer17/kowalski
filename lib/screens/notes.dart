@@ -6,26 +6,30 @@ import 'package:kowalski/screens/editor.dart';
 
 class NotesScreen extends StatefulWidget {
   final Client client;
+  final VoidCallback? onRefresh;  // Add this line
 
   const NotesScreen({
     Key? key,
     required this.client,
+    this.onRefresh,  // Add this line
   }) : super(key: key);
 
   @override
-  State<NotesScreen> createState() => _NotesScreenState();
+  NotesScreenState createState() => NotesScreenState();  // Changed to public state
 }
 
-class _NotesScreenState extends State<NotesScreen> {
+// Changed to public state class
+class NotesScreenState extends State<NotesScreen> {
   List<Note> notes = [];
 
   @override
   void initState() {
     super.initState();
-    _loadNotes();
+    loadNotes();
   }
 
-  Future<void> _loadNotes() async {
+  // Make this method public
+  Future<void> loadNotes() async {
     final grpcNotes = await widget.client.listNotes();
     setState(() {
       notes = grpcNotes.map((grpcNote) => Note.fromGrpc(grpcNote)).toList();
@@ -41,8 +45,8 @@ class _NotesScreenState extends State<NotesScreen> {
         final note = notes[index];
         return NoteCard(
           note: note,
-          onTap: () {
-            Navigator.push(
+          onTap: () async {
+            await Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => EditorScreen(
@@ -51,6 +55,7 @@ class _NotesScreenState extends State<NotesScreen> {
                 ),
               ),
             );
+            loadNotes();
           },
         );
       },
