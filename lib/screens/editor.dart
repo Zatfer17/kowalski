@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import '../models/note.dart';
+import 'package:kowalski/models/note.dart';
+import 'package:kowalski/services/grpc/client.dart';
 
 class EditorScreen extends StatefulWidget {
   final Note? note;
-  EditorScreen({Key? key, this.note}) : super(key: key);
+  final Client client;
+
+  const EditorScreen({
+    Key? key,
+    this.note,
+    required this.client,
+  }) : super(key: key);
 
   @override
   _EditorScreenState createState() => _EditorScreenState();
@@ -37,6 +44,9 @@ class _EditorScreenState extends State<EditorScreen> {
     setState(() {
       tags.removeAt(index);
     });
+  }
+
+  void _handleSave() async {
   }
 
   void _handleDelete() {
@@ -192,7 +202,7 @@ class _EditorScreenState extends State<EditorScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: _handleSave,
         elevation: 0,
         label: Row(
           children: [

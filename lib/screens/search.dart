@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kowalski/services/grpc/client.dart';
 import 'package:kowalski/models/note.dart';
 import 'package:kowalski/widgets/note_card.dart';
 import 'package:kowalski/screens/editor.dart';
 
 class SearchScreen extends StatefulWidget {
+  final Client client;
+
+  const SearchScreen({
+    Key? key,
+    required this.client,
+  }) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -12,10 +20,13 @@ class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<Note> searchResults = [];
 
-  void _performSearch(String query) {
-    setState(() {
-      // Update searchResults based on query
-    });
+  void _performSearch(String query) async {
+    if (query.isEmpty) {
+      setState(() {
+        searchResults = [];
+      });
+      return;
+    }
   }
 
   @override
@@ -53,7 +64,7 @@ Widget build(BuildContext context) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EditorScreen(note: searchResults[index]),
+                    builder: (context) => EditorScreen(note: searchResults[index], client: widget.client),
                   ),
                 );
               },

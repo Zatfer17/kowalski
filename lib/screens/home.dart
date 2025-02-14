@@ -49,8 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: selectedIndex,
         children: [
-          NotesScreen(notes: notes), // Replace ListView with NotesScreen
-          SearchScreen(),
+          NotesScreen(
+            notes: notes,
+            client: client,
+          ),
+          SearchScreen(
+            client: client,
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -58,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EditorScreen(),
+              builder: (context) => EditorScreen(client: client),
             ),
           );
         },

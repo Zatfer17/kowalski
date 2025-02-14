@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kowalski/services/grpc/client.dart';
 import 'package:kowalski/models/note.dart';
 import 'package:kowalski/widgets/note_card.dart';
 import 'package:kowalski/screens/editor.dart';
 
 class NotesScreen extends StatelessWidget {
   final List<Note> notes;
+  final Client client;
 
-  const NotesScreen({Key? key, required this.notes}) : super(key: key);
+    const NotesScreen({
+      Key? key,
+      required this.notes,
+      required this.client,
+    }) : super(key: key);
 
   Map<String, List<Note>> _groupNotesByMonth() {
     Map<String, List<Note>> groupedNotes = {};
@@ -38,16 +44,16 @@ class NotesScreen extends StatelessWidget {
               ),
             ),
             ...entry.value.map((note) => NoteCard(
-                  note: note,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => EditorScreen(note: note),
-                      ),
-                    );
-                  },
-                )),
+              note: note,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditorScreen(note: note, client: client),
+                  ),
+                );
+              },
+            )),
           ],
         );
       }).toList(),
