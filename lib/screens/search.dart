@@ -21,13 +21,25 @@ class _SearchScreenState extends State<SearchScreen> {
   List<Note> searchResults = [];
 
   void _performSearch(String query) async {
-    if (query.isEmpty) {
-      setState(() {
-        searchResults = [];
-      });
-      return;
-    }
+  if (query.isEmpty) {
+    setState(() {
+      searchResults = [];
+    });
+    return;
   }
+
+  try {
+    final grpcResults = await widget.client.findNotes(query);
+    setState(() {
+      searchResults = grpcResults.map((grpcNote) => Note.fromGrpc(grpcNote)).toList();
+    });
+  } catch (e) {
+    // Optionally show an error message
+    setState(() {
+      searchResults = [];
+    });
+  }
+}
 
   @override
 Widget build(BuildContext context) {

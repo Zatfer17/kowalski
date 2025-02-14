@@ -21,6 +21,12 @@ class Client {
     await stub.add(request);
   }
 
+  Future<List<Note>> findNotes(String query) async {
+    final request = FindRequest(query: query, descending: true);
+    final response = await stub.find(request);
+    return response.notes;
+  }
+
   Future<List<Note>> listNotes() async {
     final request = ListRequest(descending: true);
     final response = await stub.list(request);
