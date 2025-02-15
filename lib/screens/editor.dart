@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kowalski/models/note.dart';
-import 'package:kowalski/services/grpc/client.dart';
+//import 'package:kowalski/services/grpc/client.dart';
+import 'package:kowalski/services/grpc/mock_client.dart';
 
 class EditorScreen extends StatefulWidget {
   final Note? note;

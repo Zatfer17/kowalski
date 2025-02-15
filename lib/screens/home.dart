@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kowalski/services/grpc/client.dart';
+//import 'package:kowalski/services/grpc/client.dart';
+import 'package:kowalski/services/grpc/mock_client.dart';
 import 'package:kowalski/screens/notes.dart';
 import 'package:kowalski/screens/editor.dart';
 import 'package:kowalski/screens/search.dart';
