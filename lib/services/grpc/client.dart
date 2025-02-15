@@ -21,6 +21,11 @@ class Client {
     await stub.add(request);
   }
 
+  Future<void> editNote(String created, List<String> tags, String content) async {
+    final request = EditRequest(name: '$created.md', content: content, tags: tags);
+    await stub.edit(request);
+  }
+
   Future<List<Note>> findNotes(String query) async {
     final request = FindRequest(query: query, descending: true);
     final response = await stub.find(request);

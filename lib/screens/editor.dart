@@ -59,6 +59,7 @@ class _EditorScreenState extends State<EditorScreen> {
         Navigator.pop(context);
       } else {
         // TODO: Implement edit note
+        await widget.client.editNote(widget.note!.created, tags, content);
         Navigator.pop(context);
       }
     } catch (e) {
