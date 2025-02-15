@@ -42,4 +42,9 @@ class Client {
     final request = RemoveRequest(name: '$created.md');
     await stub.remove(request);
   }
+
+  Future<void> saveLink(String url) async {
+    final request = SaveRequest(tags: ["link"], content: url);
+    await stub.save(request);
+  }
 }
