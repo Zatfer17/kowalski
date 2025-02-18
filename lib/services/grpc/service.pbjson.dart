@@ -47,13 +47,43 @@ final $typed_data.Uint8List addRequestDescriptor = $convert.base64Decode(
 const AddResponse$json = {
   '1': 'AddResponse',
   '2': [
-    {'1': 'error', '3': 1, '4': 1, '5': 9, '10': 'error'},
+    {'1': 'note', '3': 1, '4': 1, '5': 11, '6': '.service.Note', '10': 'note'},
+    {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
   ],
 };
 
 /// Descriptor for `AddResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List addResponseDescriptor = $convert.base64Decode(
-    'CgtBZGRSZXNwb25zZRIUCgVlcnJvchgBIAEoCVIFZXJyb3I=');
+    'CgtBZGRSZXNwb25zZRIhCgRub3RlGAEgASgLMg0uc2VydmljZS5Ob3RlUgRub3RlEhQKBWVycm'
+    '9yGAIgASgJUgVlcnJvcg==');
+
+@$core.Deprecated('Use cookRequestDescriptor instead')
+const CookRequest$json = {
+  '1': 'CookRequest',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'prompt', '3': 2, '4': 1, '5': 9, '10': 'prompt'},
+  ],
+};
+
+/// Descriptor for `CookRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cookRequestDescriptor = $convert.base64Decode(
+    'CgtDb29rUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1lEhYKBnByb21wdBgCIAEoCVIGcHJvbX'
+    'B0');
+
+@$core.Deprecated('Use cookResponseDescriptor instead')
+const CookResponse$json = {
+  '1': 'CookResponse',
+  '2': [
+    {'1': 'note', '3': 1, '4': 1, '5': 11, '6': '.service.Note', '10': 'note'},
+    {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
+  ],
+};
+
+/// Descriptor for `CookResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List cookResponseDescriptor = $convert.base64Decode(
+    'CgxDb29rUmVzcG9uc2USIQoEbm90ZRgBIAEoCzINLnNlcnZpY2UuTm90ZVIEbm90ZRIUCgVlcn'
+    'JvchgCIAEoCVIFZXJyb3I=');
 
 @$core.Deprecated('Use editRequestDescriptor instead')
 const EditRequest$json = {
@@ -74,13 +104,15 @@ final $typed_data.Uint8List editRequestDescriptor = $convert.base64Decode(
 const EditResponse$json = {
   '1': 'EditResponse',
   '2': [
-    {'1': 'error', '3': 1, '4': 1, '5': 9, '10': 'error'},
+    {'1': 'note', '3': 1, '4': 1, '5': 11, '6': '.service.Note', '10': 'note'},
+    {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
   ],
 };
 
 /// Descriptor for `EditResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List editResponseDescriptor = $convert.base64Decode(
-    'CgxFZGl0UmVzcG9uc2USFAoFZXJyb3IYASABKAlSBWVycm9y');
+    'CgxFZGl0UmVzcG9uc2USIQoEbm90ZRgBIAEoCzINLnNlcnZpY2UuTm90ZVIEbm90ZRIUCgVlcn'
+    'JvchgCIAEoCVIFZXJyb3I=');
 
 @$core.Deprecated('Use findRequestDescriptor instead')
 const FindRequest$json = {
@@ -180,11 +212,13 @@ final $typed_data.Uint8List saveRequestDescriptor = $convert.base64Decode(
 const SaveResponse$json = {
   '1': 'SaveResponse',
   '2': [
-    {'1': 'error', '3': 1, '4': 1, '5': 9, '10': 'error'},
+    {'1': 'note', '3': 1, '4': 1, '5': 11, '6': '.service.Note', '10': 'note'},
+    {'1': 'error', '3': 2, '4': 1, '5': 9, '10': 'error'},
   ],
 };
 
 /// Descriptor for `SaveResponse`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List saveResponseDescriptor = $convert.base64Decode(
-    'CgxTYXZlUmVzcG9uc2USFAoFZXJyb3IYASABKAlSBWVycm9y');
+    'CgxTYXZlUmVzcG9uc2USIQoEbm90ZRgBIAEoCzINLnNlcnZpY2UuTm90ZVIEbm90ZRIUCgVlcn'
+    'JvchgCIAEoCVIFZXJyb3I=');
 

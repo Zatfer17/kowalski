@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kowalski/models/note.dart';
-//import 'package:kowalski/services/grpc/client.dart';
-import 'package:kowalski/services/grpc/mock_client.dart';
+import 'package:kowalski/services/grpc/client.dart';
+//import 'package:kowalski/services/grpc/mock_client.dart';
 
 class EditorScreen extends StatefulWidget {
   final Note? note;
@@ -20,6 +20,7 @@ class EditorScreen extends StatefulWidget {
 class _EditorScreenState extends State<EditorScreen> {
   final TextEditingController _contentController = TextEditingController();
   final TextEditingController _tagController = TextEditingController();
+  final TextEditingController _promptController = TextEditingController();
   final FocusNode _tagFocusNode = FocusNode();
   List<String> tags = [];
 
@@ -144,8 +145,97 @@ class _EditorScreenState extends State<EditorScreen> {
     );
   }
 
+  void _showCookDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Cook with AI',
+            style: TextStyle(color: Colors.black),
+          ),
+          content: Container(
+            width: double.maxFinite,
+            child: TextField(
+              controller: _promptController,
+              style: TextStyle(color: Colors.black),
+              maxLines: 5, // Make the text field taller
+              decoration: InputDecoration(
+                hintText: 'Enter prompt...',
+                hintStyle: TextStyle(color: Colors.black54),
+                fillColor: Colors.grey[100],
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black87),
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                final prompt = _promptController.text.trim();
+                if (prompt.isNotEmpty) {
+                  try {
+                    // Cook note and get result
+                    final cookedNote = await widget.client.cookNote(
+                      widget.note?.created ?? DateTime.now().toIso8601String(), // If no note exists, use current timestamp
+                      prompt
+                    );
+
+                    Navigator.pop(context); 
+                    
+                    setState(() {
+                      _contentController.text = cookedNote.content;
+                      tags = List<String>.from(cookedNote.tags);
+                    });
+                    
+                    _promptController.clear();
+                    // Close dialog
+                  } catch (e) {
+                    Navigator.pop(context); // Close dialog
+                    // Show error dialog
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Failed to cook note: ${e.toString()}'),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              },
+              child: Text(
+                'Cook',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
+    _handleSave();
     _tagFocusNode.dispose();
     super.dispose();
   }
@@ -258,22 +348,22 @@ class _EditorScreenState extends State<EditorScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _handleSave,
-        elevation: 0,
-        label: Row(
-          children: [
-            Icon(Icons.save),
-            SizedBox(width: 8),
-            Text(
-              'Save',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+          onPressed: _showCookDialog,
+          elevation: 0,
+          label: Row(
+            children: [
+              Icon(Icons.auto_awesome),
+              SizedBox(width: 8),
+              Text(
+                'Cook',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
     );
   }
 }

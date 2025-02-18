@@ -25,6 +25,10 @@ class KowalskiClient extends $grpc.Client {
       '/service.Kowalski/Add',
       ($0.AddRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.AddResponse.fromBuffer(value));
+  static final _$cook = $grpc.ClientMethod<$0.CookRequest, $0.CookResponse>(
+      '/service.Kowalski/Cook',
+      ($0.CookRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.CookResponse.fromBuffer(value));
   static final _$edit = $grpc.ClientMethod<$0.EditRequest, $0.EditResponse>(
       '/service.Kowalski/Edit',
       ($0.EditRequest value) => value.writeToBuffer(),
@@ -54,6 +58,10 @@ class KowalskiClient extends $grpc.Client {
 
   $grpc.ResponseFuture<$0.AddResponse> add($0.AddRequest request, {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$add, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CookResponse> cook($0.CookRequest request, {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$cook, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.EditResponse> edit($0.EditRequest request, {$grpc.CallOptions? options}) {
@@ -89,6 +97,13 @@ abstract class KowalskiServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.AddRequest.fromBuffer(value),
         ($0.AddResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CookRequest, $0.CookResponse>(
+        'Cook',
+        cook_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.CookRequest.fromBuffer(value),
+        ($0.CookResponse value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.EditRequest, $0.EditResponse>(
         'Edit',
         edit_Pre,
@@ -130,6 +145,10 @@ abstract class KowalskiServiceBase extends $grpc.Service {
     return add(call, await request);
   }
 
+  $async.Future<$0.CookResponse> cook_Pre($grpc.ServiceCall call, $async.Future<$0.CookRequest> request) async {
+    return cook(call, await request);
+  }
+
   $async.Future<$0.EditResponse> edit_Pre($grpc.ServiceCall call, $async.Future<$0.EditRequest> request) async {
     return edit(call, await request);
   }
@@ -151,6 +170,7 @@ abstract class KowalskiServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.AddResponse> add($grpc.ServiceCall call, $0.AddRequest request);
+  $async.Future<$0.CookResponse> cook($grpc.ServiceCall call, $0.CookRequest request);
   $async.Future<$0.EditResponse> edit($grpc.ServiceCall call, $0.EditRequest request);
   $async.Future<$0.FindResponse> find($grpc.ServiceCall call, $0.FindRequest request);
   $async.Future<$0.ListResponse> list($grpc.ServiceCall call, $0.ListRequest request);

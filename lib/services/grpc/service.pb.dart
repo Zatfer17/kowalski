@@ -159,9 +159,13 @@ class AddRequest extends $pb.GeneratedMessage {
 
 class AddResponse extends $pb.GeneratedMessage {
   factory AddResponse({
+    Note? note,
     $core.String? error,
   }) {
     final $result = create();
+    if (note != null) {
+      $result.note = note;
+    }
     if (error != null) {
       $result.error = error;
     }
@@ -172,7 +176,8 @@ class AddResponse extends $pb.GeneratedMessage {
   factory AddResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'AddResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'service'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'error')
+    ..aOM<Note>(1, _omitFieldNames ? '' : 'note', subBuilder: Note.create)
+    ..aOS(2, _omitFieldNames ? '' : 'error')
     ..hasRequiredFields = false
   ;
 
@@ -198,13 +203,154 @@ class AddResponse extends $pb.GeneratedMessage {
   static AddResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get error => $_getSZ(0);
+  Note get note => $_getN(0);
   @$pb.TagNumber(1)
-  set error($core.String v) { $_setString(0, v); }
+  set note(Note v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasError() => $_has(0);
+  $core.bool hasNote() => $_has(0);
   @$pb.TagNumber(1)
-  void clearError() => clearField(1);
+  void clearNote() => clearField(1);
+  @$pb.TagNumber(1)
+  Note ensureNote() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get error => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set error($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
+}
+
+class CookRequest extends $pb.GeneratedMessage {
+  factory CookRequest({
+    $core.String? name,
+    $core.String? prompt,
+  }) {
+    final $result = create();
+    if (name != null) {
+      $result.name = name;
+    }
+    if (prompt != null) {
+      $result.prompt = prompt;
+    }
+    return $result;
+  }
+  CookRequest._() : super();
+  factory CookRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CookRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CookRequest', package: const $pb.PackageName(_omitMessageNames ? '' : 'service'), createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'prompt')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CookRequest clone() => CookRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CookRequest copyWith(void Function(CookRequest) updates) => super.copyWith((message) => updates(message as CookRequest)) as CookRequest;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CookRequest create() => CookRequest._();
+  CookRequest createEmptyInstance() => create();
+  static $pb.PbList<CookRequest> createRepeated() => $pb.PbList<CookRequest>();
+  @$core.pragma('dart2js:noInline')
+  static CookRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CookRequest>(create);
+  static CookRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get prompt => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set prompt($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPrompt() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPrompt() => clearField(2);
+}
+
+class CookResponse extends $pb.GeneratedMessage {
+  factory CookResponse({
+    Note? note,
+    $core.String? error,
+  }) {
+    final $result = create();
+    if (note != null) {
+      $result.note = note;
+    }
+    if (error != null) {
+      $result.error = error;
+    }
+    return $result;
+  }
+  CookResponse._() : super();
+  factory CookResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CookResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'CookResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'service'), createEmptyInstance: create)
+    ..aOM<Note>(1, _omitFieldNames ? '' : 'note', subBuilder: Note.create)
+    ..aOS(2, _omitFieldNames ? '' : 'error')
+    ..hasRequiredFields = false
+  ;
+
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CookResponse clone() => CookResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CookResponse copyWith(void Function(CookResponse) updates) => super.copyWith((message) => updates(message as CookResponse)) as CookResponse;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static CookResponse create() => CookResponse._();
+  CookResponse createEmptyInstance() => create();
+  static $pb.PbList<CookResponse> createRepeated() => $pb.PbList<CookResponse>();
+  @$core.pragma('dart2js:noInline')
+  static CookResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CookResponse>(create);
+  static CookResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Note get note => $_getN(0);
+  @$pb.TagNumber(1)
+  set note(Note v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasNote() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearNote() => clearField(1);
+  @$pb.TagNumber(1)
+  Note ensureNote() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get error => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set error($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
 }
 
 class EditRequest extends $pb.GeneratedMessage {
@@ -281,9 +427,13 @@ class EditRequest extends $pb.GeneratedMessage {
 
 class EditResponse extends $pb.GeneratedMessage {
   factory EditResponse({
+    Note? note,
     $core.String? error,
   }) {
     final $result = create();
+    if (note != null) {
+      $result.note = note;
+    }
     if (error != null) {
       $result.error = error;
     }
@@ -294,7 +444,8 @@ class EditResponse extends $pb.GeneratedMessage {
   factory EditResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'EditResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'service'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'error')
+    ..aOM<Note>(1, _omitFieldNames ? '' : 'note', subBuilder: Note.create)
+    ..aOS(2, _omitFieldNames ? '' : 'error')
     ..hasRequiredFields = false
   ;
 
@@ -320,13 +471,24 @@ class EditResponse extends $pb.GeneratedMessage {
   static EditResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get error => $_getSZ(0);
+  Note get note => $_getN(0);
   @$pb.TagNumber(1)
-  set error($core.String v) { $_setString(0, v); }
+  set note(Note v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasError() => $_has(0);
+  $core.bool hasNote() => $_has(0);
   @$pb.TagNumber(1)
-  void clearError() => clearField(1);
+  void clearNote() => clearField(1);
+  @$pb.TagNumber(1)
+  Note ensureNote() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get error => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set error($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
 }
 
 class FindRequest extends $pb.GeneratedMessage {
@@ -733,9 +895,13 @@ class SaveRequest extends $pb.GeneratedMessage {
 
 class SaveResponse extends $pb.GeneratedMessage {
   factory SaveResponse({
+    Note? note,
     $core.String? error,
   }) {
     final $result = create();
+    if (note != null) {
+      $result.note = note;
+    }
     if (error != null) {
       $result.error = error;
     }
@@ -746,7 +912,8 @@ class SaveResponse extends $pb.GeneratedMessage {
   factory SaveResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(_omitMessageNames ? '' : 'SaveResponse', package: const $pb.PackageName(_omitMessageNames ? '' : 'service'), createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'error')
+    ..aOM<Note>(1, _omitFieldNames ? '' : 'note', subBuilder: Note.create)
+    ..aOS(2, _omitFieldNames ? '' : 'error')
     ..hasRequiredFields = false
   ;
 
@@ -772,13 +939,24 @@ class SaveResponse extends $pb.GeneratedMessage {
   static SaveResponse? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get error => $_getSZ(0);
+  Note get note => $_getN(0);
   @$pb.TagNumber(1)
-  set error($core.String v) { $_setString(0, v); }
+  set note(Note v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasError() => $_has(0);
+  $core.bool hasNote() => $_has(0);
   @$pb.TagNumber(1)
-  void clearError() => clearField(1);
+  void clearNote() => clearField(1);
+  @$pb.TagNumber(1)
+  Note ensureNote() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $core.String get error => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set error($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasError() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearError() => clearField(2);
 }
 
 
