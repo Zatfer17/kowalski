@@ -14,7 +14,7 @@ final TextEditingController _linkController = TextEditingController();
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  final Client client = Client();
+  final Client client = Client(host: '127.0.0.1');
   final GlobalKey<NotesScreenState> notesKey = GlobalKey();
   bool isDialOpen = false;
 

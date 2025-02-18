@@ -5,9 +5,9 @@ class Client {
   late ClientChannel channel;
   late KowalskiClient stub;
 
-  Client() {
+  Client({String host = 'localhost'}) {
     channel = ClientChannel(
-      'localhost',
+      host,
       port: 50051,
       options: const ChannelOptions(credentials: ChannelCredentials.insecure()),
     );
