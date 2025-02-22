@@ -19,6 +19,24 @@
 <img src="assets/screenshot-6.png" width="240" height="auto">
 </p>
 
+## Setup
+
+The app backend is handled by [kowalski-core](https://github.com/Zatfer17/kowalski-core) running in server mode on Termux, hence we need to install it first:
+- Download and install latest [release](https://github.com/Zatfer17/kowalski/releases)
+- Install [termux](https://termux.dev/en/)
+- Install git and go in termux with `pkg install git golang`
+- Git clone [kowalski-core](https://github.com/Zatfer17/kowalski-core) on Termux
+- Edit the makefile and set `INSTALL_PATH` to `/data/data/com.termux/files`
+- Run `make all`
+- Run `ko serve`
+
+Finally you can launch kowalski
+
+## Remarks
+- Notes are automatically saved upon going back to the main screen
+- Notes need to be saved before one can use AI on them
+- In order to save battery (and since I couldn't make it work) there is no automatic refresh on the notes screen. So every time you add a note you must hit the refresh button to see it
+
 ## Feature matrix
 
 |                | kowalski | Keep | Obsidian | Notion | Anytype | Logseq | gitJournal | MyMind | Fabric |
