@@ -19,6 +19,10 @@
 <img src="assets/screenshot-6.png" width="240" height="auto">
 </p>
 
+## Showcase
+
+[Here](https://youtube.com/shorts/2TuYvOtdyao?feature=share) a video showcasing the functionalities
+
 ## Setup
 
 The app backend is handled by [kowalski-core](https://github.com/Zatfer17/kowalski-core) running in server mode on Termux, hence we need to install it first:
